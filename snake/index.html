@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		#board{			
+			background: grey;
+		}
+
+	</style>
+</head>
+<body>
+	<canvas id="board" height="800" width="800"></canvas>
+
+	<script type="text/javascript">
+		var xi=1,yi=0;
+		var txi=1, txi=0;	//tail incr
+		var x = 20, y = 20;
+		var dir = 'R';
+		var snake = new Array();
+		snake.push({
+			posx: 20*xi,
+			posy: 20*yi
+		});
+		console.log(snake);
+		window.addEventListener("keydown", function(som){	
+			k = som.keyCode;
+			console.log(k);
+			if(k==88){
+				clearInterval(board);
+				console.log("Interval Cleared");
+			}else if(k==38){
+				xi=0;
+				yi=-1;
+				dir='T';
+
+			}else if(k==40){
+				yi=1;
+				xi=0;
+				dir="B";
+
+			}else if(k==37){
+				xi=-1;
+				yi=0;
+				dir="L";
+			}else if(k==39){
+				xi=1;
+				yi=0;
+				dir="R";
+			}
+			move();
+		});	
+		setTimeout(function(){
+			clearInterval(board);
+		}, 10000);
+		var posx = x, posy = y;
+		board = setInterval(function(){
+			// function move(){			//Move Head
+				var c = document.getElementById("board");
+				var ctx = c.getContext("2d");
+				ctx.clearRect(0,0,c.width,c.height);
+				ctx.beginPath();
+				for (var i = 0; i<snake.length; i++) {
+					snake[i];
+				};					
+				posx += 20*xi;
+				posy += 20*yi;
+				ctx.rect(posx%800, posy%800,20,20);
+				ctx.stroke();	
+			// }	
+		},250);
+		function follow(piece){ 				//Move Body
+			switch(dir){
+				case 'R': snake[piece].posx = posx += 20*xi;
+			}
+
+		}
+	</script>
+</body>
+</html>
